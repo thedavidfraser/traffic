@@ -1,0 +1,23 @@
+.button {
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  border-radius: 3px;
+  background-color: #415055;
+  color: #C0C5C7;
+
+  &--selected {
+  	background-color: #F0A902;
+  	color: #FFFFFF;
+  }
+
+  &__button {
+  	margin: 0;
+  	border: 0;
+  	padding: 8px;
+  	background-color: transparent;
+  	font-weight: bold;
+  	color: inherit;
+  	cursor: pointer;
+  }
+}

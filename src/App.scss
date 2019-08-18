@@ -1,0 +1,28 @@
+.app {
+  padding-bottom: 200px;
+  background-color: #E7EBEE;
+  color: #232B2E;
+
+  &__add {
+    margin: 0;
+    padding: 15px 15px 5px 15px;
+    background-color: #232B2D;
+    color: #898B8E;
+  }
+
+  &__select {
+    padding: 30px;
+    background-color: #293335;
+    color: #898B8E;
+  }
+
+  &__select-heading {
+    margin-top: 0;
+  }
+
+  &__chart {
+    margin: 15px;
+    background-color: #FFFFFF;
+    color: #232B2E;
+  }
+}

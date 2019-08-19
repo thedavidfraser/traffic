@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Highcharts from 'highcharts';
@@ -18,10 +17,6 @@ class Chart extends React.Component {
     selectedVehicleKeys: Immutable.List(),
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { data, selectedVehicleKeys, selectedCountPoints } = this.props;
     const options = {
@@ -29,7 +24,7 @@ class Chart extends React.Component {
         type: 'column',
       },
       title: {
-        text: 'Traffic volume by type 2000',
+        text: 'Traffic volume by type (year 2000)',
       },
       series: [],
       xAxis: {
@@ -40,7 +35,6 @@ class Chart extends React.Component {
     const dataSlice = data.filter(countPoint =>
       selectedCountPoints.includes(String(countPoint.get('count_point_id'))),
     );
-    const first = data.first();
 
     selectedVehicleKeys.forEach((dataKey, index) => {
       options.series.push({

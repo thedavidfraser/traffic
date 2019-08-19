@@ -8,14 +8,14 @@ import './SelectCountPoints.scss';
 class SelectCountPoints extends React.Component {
   static propTypes = {
     countPoints: ImmutablePropTypes.map,
-    isShowSelectedOnly: PropTypes.bool,
+    countPointIds: ImmutablePropTypes.list,
     onSelectCountPoint: PropTypes.func.isRequired,
     selectedCountPoints: ImmutablePropTypes.list,
   };
 
   static defaultProps = {
     countPoints: Immutable.List(),
-    isShowSelectedOnly: false,
+    countPointIds: null,
     selectedCountPoints: Immutable.List(),
   };
 
@@ -26,10 +26,8 @@ class SelectCountPoints extends React.Component {
   };
 
   render() {
-    const { countPoints, isShowSelectedOnly, selectedCountPoints } = this.props;
-    const countPointIds = isShowSelectedOnly ?
-      selectedCountPoints :
-      countPoints.keySeq();
+    const { countPoints, selectedCountPoints } = this.props;
+    const countPointIds = this.props.countPointIds || countPoints.keySeq();
 
     return (
       <div className="select-count-points">

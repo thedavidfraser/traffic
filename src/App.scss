@@ -11,6 +11,7 @@
   }
 
   &__select {
+    position: relative;
     padding: 30px;
     background-color: #293335;
     color: #898B8E;
@@ -20,9 +21,24 @@
     margin-top: 0;
   }
 
+  &__select-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
   &__chart {
     margin: 15px;
     background-color: #FFFFFF;
     color: #232B2E;
+  }
+
+  &__chart-detail-options {
+    margin-left: 30px;
+  }
+
+  &__info {
+    margin: 30px;
+    font-weight: bold;
   }
 }

@@ -2,9 +2,9 @@ import React from 'react';
 import Immutable from 'immutable';
 import Button from './components/Button/Button.js';
 import Chart from './components/Chart/Chart.js';
+import ChartTime from './components/ChartTime/ChartTime.js';
 import SelectCountPoints from './components/SelectCountPoints/SelectCountPoints.js';
 import SelectVehicleAndYear from './components/SelectVehicleAndYear/SelectVehicleAndYear.js';
-import logo from './logo.svg';
 import './App.scss';
 
 // TODO set up proxy, take into account paginiation
@@ -68,7 +68,15 @@ class App extends React.Component {
       selectedCountPoints: Immutable.List(),
       selectedVehicleKeys: Immutable.List(['all_motor_vehicles']),
     };
-    // this.fetchContent();
+  }
+
+  onCountPointDetail = (nextCountPointId) => {
+    const { countPointId } = this.state;
+
+    this.setState({
+      countPointId: nextCountPointId === countPointId ?
+        '' : nextCountPointId,
+    })
   }
 
   onCountPointSelect = () => {
@@ -80,12 +88,24 @@ class App extends React.Component {
     });
   }
 
+  onCountPointsSelectClose = () => {
+    this.setState({
+      isCountPointSelectEnabled: false,
+    });
+  }
+
   onVehicleSelect = () => {
     const { isVehicleSelectEnabled } = this.state;
 
     this.setState({
       isCountPointSelectEnabled: false,
       isVehicleSelectEnabled: !isVehicleSelectEnabled,
+    });
+  }
+
+  onVehicleSelectClose = () => {
+    this.setState({
+      isVehicleSelectEnabled: false,
     });
   }
 
@@ -145,34 +165,24 @@ class App extends React.Component {
     this.setState({ data, countPoints });
   }
 
-  // tick() {
-  //   this.setState(state => ({
-  //     seconds: state.seconds + 1
-  //   }));
-  // }
-
   componentDidMount() {
     urls.forEach(({ localAuthority, url, year }) => {
       this.fetchContent({ localAuthority, url, year });
     });
-    
-    // this.interval = setInterval(() => this.tick(), 1000);
   }
-
-  // componentWillUnmount() {
-  //   clearInterval(this.interval);
-  // }
 
   render() {
     const {
       countPoints,
+      countPointId,
       data,
       selectedVehicleKeys,
       isCountPointSelectEnabled,
       isVehicleSelectEnabled,
       selectedCountPoints,
     } = this.state;
-    const localAuthorityYearData = data.getIn(['71', '2000', 'data']);
+    const localAuthorityData = data.get('71') || Immutable.Map();
+    const localAuthorityYearData = localAuthorityData.getIn(['2000', 'data']);
 
     return (
       <div className="app">
@@ -183,14 +193,14 @@ class App extends React.Component {
           />
           <SelectCountPoints
             countPoints={countPoints}
-            isShowSelectedOnly
+            countPointIds={selectedCountPoints}
             selectedCountPoints={selectedCountPoints}
             onSelectCountPoint={this.onSelectCountPoint}
           />
         </div>
         <div className="app__add">
           <Button
-            label="Add vehicle & year"
+            label="Add vehicle"
             onClick={this.onVehicleSelect}
           />
           <SelectVehicleAndYear
@@ -208,6 +218,12 @@ class App extends React.Component {
               selectedCountPoints={selectedCountPoints}
               onSelectCountPoint={this.onSelectCountPoint}
             />
+            <div className="app__select-close">
+              <Button
+                label="× Close"
+                onClick={this.onCountPointsSelectClose}
+              />
+            </div>
           </div>
         )}
         {isVehicleSelectEnabled && (
@@ -218,6 +234,22 @@ class App extends React.Component {
               onSetVehicleKey={this.onSetVehicleKey}
               vehicleLabels={vehicleLabels}
             />
+            <div className="app__select-close">
+              <Button
+                label="× Close"
+                onClick={this.onVehicleSelectClose}
+              />
+            </div>
+          </div>
+        )}
+        {!selectedCountPoints.size && (
+          <div className="app__info">
+            Please Add Count Point above
+          </div>
+        )}
+        {!selectedVehicleKeys.size && (
+          <div className="app__info">
+            Please Add Vehicle above
           </div>
         )}
         <div className="app__chart">
@@ -228,6 +260,29 @@ class App extends React.Component {
             selectedCountPoints={selectedCountPoints}
           />
         </div>
+        <div className="app__chart-detail-options">
+          <SelectCountPoints
+            countPoints={countPoints}
+            countPointIds={selectedCountPoints}
+            selectedCountPoints={Immutable.List([countPointId])}
+            onSelectCountPoint={this.onCountPointDetail}
+          />
+        </div>
+        {countPointId ? (
+          <div className="app__chart">
+            <ChartTime
+              countPoint={countPoints.get(String(countPointId))}
+              countPointId={String(countPointId)}
+              localAuthorityData={localAuthorityData}
+              selectedVehicleKeys={selectedVehicleKeys}
+              selectedCountPoints={selectedCountPoints}
+            />
+          </div>
+        ) : !!selectedCountPoints.size && (
+          <div className="app__info">
+            Select a Count Point above
+          </div>
+        )}
       </div>
     );
   }

@@ -1,4 +1,34 @@
+# Traffic
+
+You can see the site working at <http://davidfraser.co.uk/traffic/>
+
+There you can select multiple Vehicle types and Count Points. The data from 2000 appears in the first chart. Selecting a displayed Count Point below the first chart reveals a second chart plotting change between 2000 and 2005.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Next steps
+
+Given more time I'd have continued with the following in near-priority order:
+
+* Stop treating count_point_id's like they’re unique (they aren’t because they have multiple directions)
+
+* Add a year select under Add Vehicle, so you could compare vehicles from the same or different years 
+
+* Add a third chart: a pie chart made up of different vehicle types for one year (selected from the chart above).
+* Unit tests, Given the limited amount of time I favoured working on the presentation instead of adding unit tests
+* A fetch proxy server to get more data including pagination, years, local authorities and regions. 
+
+* Add click events to chart xAxis, instead of additional rows of buttons 
+
+* Style the charts and make mobile/tablet friendly 
+
+* Refactor to a clearer file structure including breaking down the App component properly, using Immutable for highchart configuration and Sass color variables 
+
+* Google Map API, for count point select and quick tool-tip information
+
+* Use this tool to discover a more insightful use of the data and present it accordingly
+
+
 
 ## Available Scripts
 
@@ -12,11 +42,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `npm run build`
 
 Builds the app for production to the `build` folder.<br>
@@ -27,42 +52,4 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
